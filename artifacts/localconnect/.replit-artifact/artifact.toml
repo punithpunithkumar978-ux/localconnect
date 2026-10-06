@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "LocalConnect"
+description = "A local creator marketplace for small businesses to discover nearby creators, review their profiles, and manage collaboration campaigns."
+version = "1.0.0"
+id = "artifacts/localconnect"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25433
+
+[services.development]
+run = "pnpm --filter @workspace/localconnect run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/localconnect", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/localconnect/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25433"
+BASE_PATH = "/"

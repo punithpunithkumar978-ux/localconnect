@@ -1,0 +1,502 @@
+# PROFESSIONAL HUMAN-MADE UI DESIGN — IMPORTANT
+
+The entire application must look **professionally designed by an experienced human product designer and development team**.
+
+Do NOT make the website look AI-generated, overly decorative, flashy, or like a generic SaaS template.
+
+## DESIGN PHILOSOPHY
+
+Keep the interface:
+
+* Professional
+* Minimal
+* Clean
+* Practical
+* Trustworthy
+* Modern
+* Business-focused
+* Easy to understand
+* Human-designed
+* Production-ready
+
+The product should look like an actual startup that could launch publicly.
+
+---
+
+# NO EXCESSIVE VISUAL EFFECTS
+
+Do NOT use:
+
+* Excessive gradients
+* Large colorful backgrounds
+* Animated backgrounds
+* Glowing effects
+* Neon colors
+* Excessive glassmorphism
+* Floating decorative shapes
+* Random blobs
+* 3D illustrations
+* AI-style abstract graphics
+* Excessive shadows
+* Excessive rounded cards
+* Excessive animations
+* Unnecessary motion
+* Decorative elements that don't improve usability
+
+Do not make every section visually different.
+
+Keep the design consistent throughout the application.
+
+---
+
+# COLORS
+
+Use a restrained professional color system.
+
+Prefer:
+
+* White
+* Off-white
+* Very light neutral backgrounds
+* Dark charcoal text
+* Neutral gray borders
+* One professional primary accent color
+* Subtle success/warning/error colors only where necessary
+
+Do NOT use multiple bright colors just to make the interface look attractive.
+
+Color should communicate information, not decoration.
+
+For example:
+
+Primary action:
+
+**Find Creators**
+
+Secondary action:
+
+**Save**
+
+Danger:
+
+**Report**
+
+Success:
+
+**Verified**
+
+Keep these colors subtle and consistent.
+
+---
+
+# BACKGROUNDS
+
+Use mostly:
+
+* White
+* Very light neutral gray
+* Clean content areas
+
+Avoid:
+
+* Gradient backgrounds
+* Colorful hero backgrounds
+* Huge background illustrations
+* Decorative patterns
+* Animated backgrounds
+
+The application should feel like a professional marketplace/productivity platform.
+
+---
+
+# TYPOGRAPHY
+
+Use a professional modern font such as:
+
+* Inter
+* Geist
+* Manrope
+
+Use typography carefully.
+
+Do not use huge marketing headlines everywhere.
+
+Use clear hierarchy:
+
+Page title
+
+Section title
+
+Body text
+
+Metadata
+
+Labels
+
+Buttons
+
+Keep font sizes practical and readable.
+
+---
+
+# CARDS
+
+Do not put everything inside cards.
+
+Use cards only when they improve organization.
+
+Creator cards should be simple.
+
+Example:
+
+```text
+┌──────────────────────────────────────────────┐
+│  Profile   Rahul Kumar              ✓        │
+│            Food Creator                     │
+│                                              │
+│  📍 Tirupati · 4.2 km                       │
+│                                              │
+│  25K Followers    6.2% Engagement            │
+│                                              │
+│  Food · Lifestyle                            │
+│  Telugu · English                            │
+│                                              │
+│  Starting ₹2,500                             │
+│                                              │
+│  [View Profile]       [Contact]              │
+└──────────────────────────────────────────────┘
+```
+
+Keep cards functional rather than decorative.
+
+---
+
+# NAVIGATION
+
+Use a clean professional navigation bar.
+
+Desktop:
+
+```text
+LOCALCONNECT
+
+Discover   Campaigns   Businesses
+
+                         Messages
+                         Notifications
+                         Profile
+```
+
+Avoid oversized navigation.
+
+Mobile navigation should be simple and practical.
+
+---
+
+# BUTTONS
+
+Buttons should look like real product UI.
+
+Primary:
+
+**Find Creators**
+
+Secondary:
+
+**Save Creator**
+
+Tertiary:
+
+**View Profile**
+
+Avoid:
+
+* Huge pill buttons everywhere
+* Gradient buttons
+* Glowing buttons
+* Animated buttons
+* Excessively rounded buttons
+
+Use moderate border radius.
+
+---
+
+# FORMS
+
+Forms should look professional and simple.
+
+Use:
+
+* Clear labels
+* Helpful placeholders
+* Proper spacing
+* Validation messages
+* Required indicators
+* Select/dropdown controls
+* Search fields
+
+Example:
+
+```text
+Business Location
+
+[ Search city, area or PIN code                 ]
+
+Search radius
+
+[ 10 km ▼ ]
+
+Business category
+
+[ Restaurant ▼ ]
+```
+
+Do not hide important information behind unnecessary UI effects.
+
+---
+
+# DASHBOARDS
+
+Dashboards should prioritize information.
+
+Do NOT create dashboards filled with:
+
+* Huge colorful statistics
+* Random charts
+* Decorative widgets
+* Unnecessary graphs
+
+Instead show useful information.
+
+Example:
+
+```text
+Business Dashboard
+
+Good morning, Punith
+
+[ Find Creators ]
+
+Active Campaigns        ₹18,500 Spent
+3                       12 Creators
+
+Recommended Creators
+
+Creator              Location       Match
+Rahul Kumar          4.2 km         92%
+Anjali Reddy         7.1 km         88%
+Kiran Kumar          9.4 km         84%
+
+Active Campaigns
+
+Cafe Grand Opening
+5 creators · ₹12,000 · In progress
+```
+
+Information should be immediately understandable.
+
+---
+
+# MAP UI
+
+The map should be functional, not decorative.
+
+Use a clean map.
+
+Creator markers should be subtle.
+
+When clicking a creator:
+
+Show a compact information panel.
+
+Do not cover the entire map with oversized colorful UI.
+
+---
+
+# CREATOR PROFILE
+
+Make the creator profile feel similar to a professional marketplace profile.
+
+Structure:
+
+```text
+Profile Header
+
+Photo
+Name
+Verified
+Location
+Followers
+Engagement
+Rating
+
+About
+
+Categories
+
+Social Profiles
+
+Audience
+
+Services & Pricing
+
+Portfolio
+
+Reviews
+
+Availability
+
+[Request Collaboration]
+```
+
+Prioritize information hierarchy.
+
+---
+
+# ANIMATIONS
+
+Animations should be extremely limited.
+
+Use only subtle transitions when necessary:
+
+* Button hover
+* Dropdown opening
+* Modal opening
+* Page transitions
+* Loading states
+
+Avoid:
+
+* Constant floating animations
+* Parallax
+* Animated gradients
+* Bouncing elements
+* Text animations
+* Excessive motion
+
+The application should still look excellent with animations disabled.
+
+---
+
+# ICONS
+
+Use a consistent icon library such as:
+
+**Lucide**
+
+Do not use random emojis as UI icons.
+
+For example:
+
+Use a proper location icon instead of:
+
+📍
+
+Use a proper search icon instead of:
+
+🔍
+
+Use professional icons consistently.
+
+---
+
+# IMAGES
+
+Use real-looking profile/business imagery where appropriate.
+
+Avoid generic AI-generated-looking illustrations.
+
+Do not fill the interface with stock illustrations just to occupy space.
+
+Images should have a purpose.
+
+---
+
+# EMPTY STATES
+
+Keep empty states professional.
+
+Example:
+
+```text
+No creators found
+
+We couldn't find creators matching your current filters.
+
+Try increasing your search radius or changing your category.
+
+[Adjust Filters]
+```
+
+Do not use oversized illustrations.
+
+---
+
+# LOADING STATES
+
+Use simple skeleton loaders.
+
+Avoid flashy loading animations.
+
+---
+
+# ERROR STATES
+
+Use clear human-readable messages.
+
+Example:
+
+```text
+Something went wrong
+
+We couldn't load nearby creators.
+
+Please try again.
+
+[Retry]
+```
+
+---
+
+# OVERALL VISUAL RULE
+
+The final UI should feel closer to:
+
+**LinkedIn + Indeed + Airbnb + professional marketplace software**
+
+and NOT:
+
+**AI-generated SaaS landing page + colorful startup template + futuristic dashboard**
+
+The design should communicate:
+
+**Trust → Simplicity → Local Discovery → Business → Professionalism**
+
+---
+
+# HUMAN DESIGN TEST
+
+Before considering the UI complete, ask:
+
+1. Does this look like a real company product?
+2. Is every visual element useful?
+3. Is there unnecessary decoration?
+4. Does the interface work without animations?
+5. Are colors being used for meaning rather than decoration?
+6. Is the information hierarchy obvious?
+7. Can a small business owner understand the interface immediately?
+8. Does it look professional on mobile?
+9. Does it look like something a human product designer intentionally designed?
+10. Could this realistically be launched publicly tomorrow?
+
+If any answer is NO, simplify the design.
+
+## FINAL RULE
+
+**Less decoration. More usability.**
+
+**Less AI-style visual effects. More professional product design.**
+
+**Less marketing gimmicks. More useful information.**
+
+Build the UI as a serious location-based business marketplace, not as an AI demo.
