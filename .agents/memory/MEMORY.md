@@ -1,1 +1,2 @@
 - [Vite React dependency cache](vite-react-dependency-cache.md) — after changing React versions, Vite may serve stale optimized dependencies; reset the artifact cache before rechecking.
+- [OpenStreetMap usage](openstreetmap-usage.md) — user approved OSM for live discovery; keep searches explicit and disclose map-area requests.

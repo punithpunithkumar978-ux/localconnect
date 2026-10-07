@@ -1,0 +1,838 @@
+# SUPABASE DATABASE INTEGRATION — CONNECT THE EXISTING FRONTEND
+
+Connect the existing LOCALCONNECT frontend to my Supabase backend.
+
+## SUPABASE PROJECT
+
+Supabase Project URL:
+
+`https://mefjqlmthqhwsmqnzocm.supabase.co`
+
+Use this Supabase project as the application's primary backend/database.
+
+Do NOT create a separate mock database.
+
+Do NOT use fake/local JSON data for production functionality.
+
+All application data must be stored and retrieved from Supabase.
+
+---
+
+# ENVIRONMENT VARIABLES
+
+Create/use:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://mefjqlmthqhwsmqnzocm.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=YOUR_SUPABASE_PUBLISHABLE_KEY
+```
+
+If the project uses the legacy Supabase terminology, the public client key may be called:
+
+```env
+NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+```
+
+Never hardcode secret keys inside frontend components.
+
+Never expose:
+
+```env
+SUPABASE_SERVICE_ROLE_KEY
+```
+
+to the browser.
+
+If server-side privileged operations are required, keep the service-role key exclusively in server-side environment variables.
+
+---
+
+# INSTALL SUPABASE
+
+Use the official Supabase JavaScript client.
+
+Install:
+
+```bash
+npm install @supabase/supabase-js
+```
+
+Create:
+
+```text
+lib/
+  supabase/
+    client.ts
+    server.ts
+```
+
+---
+
+# SUPABASE CLIENT
+
+Create a browser Supabase client for frontend operations.
+
+Example architecture:
+
+```text
+lib/supabase/client.ts
+```
+
+The client should read:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+```
+
+Do not hardcode credentials.
+
+---
+
+# SERVER SUPABASE CLIENT
+
+For Next.js server components/server actions/API routes, create a separate server client.
+
+Handle authentication cookies/session correctly.
+
+Server-only credentials must never be imported into client components.
+
+---
+
+# CONNECT EXISTING UI TO REAL DATA
+
+The existing frontend UI must now use Supabase instead of static/demo data.
+
+Replace mock arrays such as:
+
+```ts
+const creators = [...]
+```
+
+with real Supabase queries.
+
+Example:
+
+```ts
+const { data, error } = await supabase
+  .from("creators")
+  .select("*");
+```
+
+Handle:
+
+* loading
+* success
+* empty state
+* error state
+
+properly.
+
+---
+
+# AUTHENTICATION
+
+Implement Supabase Authentication.
+
+Support:
+
+* Email/password
+* Google OAuth if configured
+* Email verification
+* Password reset
+* Logout
+* Session persistence
+
+Create an authenticated user flow:
+
+```text
+Register
+   ↓
+Supabase Auth User
+   ↓
+Create Profile
+   ↓
+Select Role
+   ↓
+Business / Creator Dashboard
+```
+
+Roles:
+
+```text
+business
+creator
+admin
+```
+
+Do not trust a role supplied by the frontend.
+
+Use database/RLS authorization.
+
+---
+
+# DATABASE STRUCTURE
+
+Use the existing Supabase database if the required tables already exist.
+
+First inspect the existing schema.
+
+Do NOT blindly recreate existing tables.
+
+If tables are missing, create the required tables/migrations.
+
+Required entities include:
+
+```text
+profiles
+creators
+businesses
+creator_social_accounts
+creator_categories
+creator_languages
+creator_services
+creator_pricing
+locations
+campaigns
+campaign_applications
+collaborations
+conversations
+messages
+favorites
+reviews
+notifications
+payments
+verification_requests
+reports
+```
+
+Adapt the implementation to the actual existing schema rather than assuming column names.
+
+---
+
+# PROFILE DATA
+
+When a user creates their profile, save it to Supabase.
+
+Example:
+
+```text
+profiles
+--------
+id
+user_id
+full_name
+avatar_url
+role
+phone
+city
+district
+state
+created_at
+updated_at
+```
+
+Creator-specific information should be stored separately where appropriate.
+
+Example:
+
+```text
+creators
+--------
+id
+profile_id
+bio
+followers
+engagement_rate
+rating
+latitude
+longitude
+service_radius
+verification_status
+availability_status
+created_at
+updated_at
+```
+
+Business-specific information:
+
+```text
+businesses
+---------
+id
+profile_id
+business_name
+description
+category
+address
+city
+district
+state
+pincode
+latitude
+longitude
+website
+instagram_url
+created_at
+updated_at
+```
+
+Use the actual existing schema if these tables already exist.
+
+---
+
+# LOCATION SEARCH
+
+The frontend must retrieve creator data from Supabase based on location.
+
+Do NOT expose private exact creator addresses.
+
+Store coordinates securely and return only information necessary for discovery.
+
+Support:
+
+* City
+* District
+* State
+* PIN code
+* Radius
+* Latitude
+* Longitude
+
+For nearby searches, use PostgreSQL/PostGIS or a Supabase database function where appropriate.
+
+Example concept:
+
+```text
+User location
+      ↓
+Latitude + Longitude
+      ↓
+Supabase RPC
+      ↓
+Creators within radius
+      ↓
+Frontend
+```
+
+Create a reusable function such as:
+
+```text
+get_nearby_creators(latitude, longitude, radius_km)
+```
+
+Use database-side geospatial calculations instead of downloading every creator to the browser and calculating distances there.
+
+---
+
+# CREATOR SEARCH
+
+Connect the creator discovery page to Supabase.
+
+Filters must query real database records:
+
+* Location
+* Radius
+* Category
+* Followers
+* Engagement
+* Platform
+* Language
+* Budget
+* Verification
+* Availability
+
+Do not fetch all creators and filter only in React when the database can perform the filtering.
+
+Use:
+
+* indexed columns
+* pagination
+* database filtering
+* sorting
+* search
+
+---
+
+# CREATOR PROFILE PAGE
+
+When opening:
+
+```text
+/creators/[id]
+```
+
+fetch the creator from Supabase.
+
+Load:
+
+* Profile
+* Creator information
+* Social accounts
+* Categories
+* Languages
+* Services
+* Pricing
+* Portfolio
+* Reviews
+* Rating
+* Availability
+
+Show appropriate loading and error states.
+
+If creator does not exist:
+
+```text
+Creator not found
+```
+
+---
+
+# BUSINESS PROFILE
+
+Connect:
+
+```text
+/businesses/[id]
+```
+
+to Supabase.
+
+Load:
+
+* Business details
+* Location
+* Category
+* Photos
+* Social accounts
+* Reviews
+* Active campaigns
+
+---
+
+# CAMPAIGNS
+
+Businesses must be able to create real campaigns.
+
+Save campaign data into Supabase.
+
+Example:
+
+```text
+campaigns
+---------
+id
+business_id
+title
+description
+category
+location
+latitude
+longitude
+radius_km
+budget_min
+budget_max
+platform
+content_type
+language
+start_date
+end_date
+status
+created_at
+updated_at
+```
+
+Creators should be able to discover campaigns from Supabase.
+
+---
+
+# CAMPAIGN APPLICATIONS
+
+When a creator clicks:
+
+**Apply**
+
+create a record in:
+
+```text
+campaign_applications
+```
+
+Store:
+
+* campaign ID
+* creator ID
+* proposed price
+* message
+* status
+* created_at
+
+Statuses:
+
+```text
+pending
+accepted
+rejected
+withdrawn
+```
+
+---
+
+# COLLABORATION REQUESTS
+
+When a business clicks:
+
+**Request Collaboration**
+
+create a real collaboration/request record.
+
+Do not simply show a frontend success message.
+
+The data must persist in Supabase.
+
+---
+
+# MESSAGING
+
+Connect the messaging interface to Supabase.
+
+Use:
+
+**Supabase Realtime**
+
+for new messages.
+
+Tables:
+
+```text
+conversations
+messages
+```
+
+Example:
+
+```text
+messages
+--------
+id
+conversation_id
+sender_id
+message
+created_at
+read_at
+```
+
+When a message is sent:
+
+1. Insert into Supabase.
+2. Realtime event updates the recipient.
+3. Update unread count.
+4. Display the message immediately.
+
+---
+
+# FAVORITES
+
+When a business clicks:
+
+**Save Creator**
+
+persist the relationship in Supabase.
+
+Do not use localStorage as the primary database.
+
+Use a table such as:
+
+```text
+favorites
+---------
+id
+business_id
+creator_id
+created_at
+```
+
+---
+
+# REVIEWS
+
+Reviews must only be possible after an eligible collaboration.
+
+Store:
+
+```text
+reviews
+-------
+id
+reviewer_id
+reviewee_id
+collaboration_id
+rating
+comment
+created_at
+```
+
+Prevent duplicate reviews for the same collaboration.
+
+---
+
+# NOTIFICATIONS
+
+Store notifications in Supabase.
+
+Examples:
+
+```text
+New collaboration request
+New campaign
+Application accepted
+New message
+Payment update
+New review
+```
+
+Use Realtime where useful.
+
+---
+
+# ROW LEVEL SECURITY
+
+This is extremely important.
+
+Enable RLS on all user-related tables.
+
+Examples:
+
+### Profiles
+
+Users can update their own profile.
+
+### Creator profiles
+
+Creators can update their own information.
+
+Public creator information can be read according to the application's visibility rules.
+
+### Businesses
+
+Businesses can update only their own business profile.
+
+### Campaigns
+
+Businesses can create/update their own campaigns.
+
+Creators can view eligible public campaigns.
+
+### Messages
+
+Only conversation participants can read/write messages.
+
+### Payments
+
+Users must never be able to modify payment records directly.
+
+Use server-side verification/webhooks for payment updates.
+
+---
+
+# SECURITY RULE
+
+Never solve authorization by simply hiding buttons in React.
+
+This is NOT sufficient:
+
+```ts
+if (user.role === "admin") {
+   showAdminButton();
+}
+```
+
+Database RLS and server-side authorization must enforce permissions.
+
+Frontend visibility is only a UX feature.
+
+---
+
+# ADMIN
+
+Create secure admin functionality.
+
+Admin pages:
+
+```text
+/admin
+/admin/users
+/admin/creators
+/admin/businesses
+/admin/campaigns
+/admin/reports
+/admin/verification
+/admin/payments
+```
+
+Admin privileges must be enforced server-side/database-side.
+
+Never allow users to make themselves admin by modifying frontend state.
+
+---
+
+# REAL-TIME UI
+
+Use Supabase Realtime for:
+
+* Messages
+* Notifications
+* Collaboration status where useful
+* Campaign updates where useful
+
+Do not use realtime for every piece of data unnecessarily.
+
+---
+
+# STORAGE
+
+Use Supabase Storage if appropriate for:
+
+* Profile images
+* Business logos
+* Portfolio images
+* Campaign assets
+
+Create appropriate storage buckets and access policies.
+
+Example:
+
+```text
+avatars
+business-assets
+creator-portfolio
+campaign-assets
+```
+
+Do not make private files publicly accessible unless intended.
+
+---
+
+# ERROR HANDLING
+
+Every Supabase request must handle:
+
+```text
+loading
+success
+empty
+error
+```
+
+Do not silently ignore:
+
+```ts
+error
+```
+
+Show useful user-friendly messages.
+
+Do not expose raw database errors to normal users.
+
+---
+
+# REMOVE MOCK DATA
+
+After connecting Supabase:
+
+Remove temporary fake data from production screens.
+
+Do not leave:
+
+```text
+John Doe
+25K Followers
+4.8% Engagement
+```
+
+hardcoded in the creator discovery page.
+
+Use database records.
+
+Seed data may be used for development/demo purposes, but it must exist in Supabase.
+
+---
+
+# ENVIRONMENT FILE
+
+Create:
+
+```text
+.env.local
+```
+
+Example:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://mefjqlmthqhwsmqnzocm.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_key_here
+```
+
+Also document server-only variables separately.
+
+Never commit `.env.local` to Git.
+
+Add:
+
+```text
+.env.local
+```
+
+to `.gitignore`.
+
+---
+
+# IMPORTANT IMPLEMENTATION RULE
+
+Before changing the database:
+
+1. Inspect the existing Supabase schema.
+2. Identify existing tables.
+3. Identify existing columns.
+4. Reuse existing tables where possible.
+5. Only create missing tables/columns.
+6. Do not destroy existing data.
+7. Do not reset the database.
+8. Do not drop existing tables.
+9. Do not overwrite production data.
+
+The frontend must adapt to the existing Supabase database.
+
+---
+
+# FINAL RESULT
+
+The finished application must have:
+
+```text
+Frontend
+   ↓
+Supabase Auth
+   ↓
+Supabase Database
+   ↓
+Supabase RLS
+   ↓
+Supabase Storage
+   ↓
+Supabase Realtime
+```
+
+The UI should remain professional, minimal, and human-designed.
+
+The application should now use **real Supabase data throughout the entire user journey**, not mock frontend data.
+
+## MOST IMPORTANT
+
+Do not just connect the Supabase URL.
+
+Actually connect:
+
+**Authentication → Profiles → Creators → Businesses → Locations → Search → Campaigns → Applications → Collaborations → Messages → Reviews → Notifications → Admin**
+
+so that the platform works as a real full-stack application.
